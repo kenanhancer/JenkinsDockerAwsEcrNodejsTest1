@@ -4,8 +4,10 @@ def DOCKER_HUB_USER="157584635219.dkr.ecr.eu-west-1.amazonaws.com"
 def HTTP_PORT="8090"
 
 node {	
+
+
     stage('Initialize'){
-	def dockerHome = tool 'myDocker'
+	def dockerHome = tool 'docker'
 		
 	env.PATH = "${dockerHome}/bin:${env.PATH}"
     }
@@ -33,7 +35,7 @@ node {
 		sh "docker images"
 	
         docker.withRegistry("https://${DOCKER_HUB_USER}", 'ecr:eu-west-1:AWS_Credential') {
-
+			docker.image(CONTAINER_NAME).push(CONTAINER_TAG);
         }
     }
 	
