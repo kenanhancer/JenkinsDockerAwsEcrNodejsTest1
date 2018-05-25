@@ -30,9 +30,9 @@ node {
     }
 
     stage('Push to Docker Registry'){
-        docker.withRegistry("https://${DOCKER_HUB_USER}", 'ecr:eu-west-1:AWS_Credential') {
-			docker.image(CONTAINER_NAME).push(CONTAINER_TAG)
-        }
+		sh("eval \$(aws ecr get-login --no-include-email | sed 's|https://||')")
+	
+
     }
 	
     stage('Run App'){
