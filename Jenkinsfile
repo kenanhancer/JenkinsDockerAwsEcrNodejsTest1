@@ -33,8 +33,7 @@ node {
 		sh "docker images"
 	
         docker.withRegistry("https://${DOCKER_HUB_USER}", 'ecr:eu-west-1:AWS_Credential') {
-			/*docker.image(CONTAINER_NAME).push(CONTAINER_TAG)*/
-			sh "docker push $DOCKER_HUB_USER/$CONTAINER_NAME:$CONTAINER_TAG"
+
         }
     }
 	
