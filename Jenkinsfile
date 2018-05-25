@@ -30,8 +30,8 @@ node {
     }
 
     stage('Push to Docker Registry'){
-        withCredentials([usernamePassword(credentialsId: 'AWS_Credential', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-            pushToImage(CONTAINER_NAME, CONTAINER_TAG, USERNAME, PASSWORD)
+        docker.withRegistry("https://${DOCKER_HUB_USER}", 'ecr:eu-west-1:AWS_Credential') {
+			docker.image(CONTAINER_NAME).push(CONTAINER_TAG)
         }
     }
 	
